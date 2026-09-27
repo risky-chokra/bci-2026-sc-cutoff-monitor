@@ -20,7 +20,7 @@
       <a class="nav-link" href="#submit">Add score</a>
       <a class="nav-link" href="#vacancies">SC vacancies</a>
     </nav>
-    <div class="status-pill" id="connection-status"><span class="status-dot"></span><span>Checking data connection</span></div>
+    <div class="status-pill" id="connection-status"><span class="status-dot"></span><span>Opening local database</span></div>
   </header>
 
   <main id="top" class="page-shell">
@@ -28,7 +28,7 @@
       <div>
         <div class="eyebrow"><span class="eyebrow-line"></span> RSSB RECRUITMENT · ADVERTISEMENT 07/2026</div>
         <h1>Basic Computer Instructor <span>2026</span></h1>
-        <p class="intro-copy">A private, candidate-entered score tracker for the <strong>Scheduled Caste (SC)</strong> category. Scores stay on this device unless you export and share the data file.</p>
+          <p class="intro-copy">A private, candidate-entered score tracker for the <strong>Scheduled Caste (SC)</strong> category. Candidate records are saved on this device; export a backup to keep or transfer them.</p>
       </div>
       <div class="category-lock" aria-label="Category fixed to Scheduled Caste">
         <span class="lock-icon" aria-hidden="true">▣</span>
@@ -49,17 +49,17 @@
         <a class="source-link" href="RSSB-Basic-Senior-Computer-Instructor-2026-Notification.pdf" target="_blank" rel="noreferrer">View RSSB notification <span aria-hidden="true">↗</span></a>
       </div>
       <div class="seat-summary">
-        <div class="seat-total-card">
-          <div class="seat-total-top"><span>Total SC seats</span><span class="seat-icon">▦</span></div>
-          <div class="seat-number">945</div>
-          <div class="seat-total-foot"><span class="mini-dot"></span> Basic Computer Instructor only</div>
+        <div class="area-seat-cards">
+          <article class="area-seat-card non-tsp-card"><div class="area-seat-top"><span>Non-TSP · SC seats</span><span class="row-dot blue"></span></div><strong>902</strong><span>879 Secondary + 23 Sanskrit</span><small><b id="nontsp-entry-count">0</b> candidate entries · <b id="nontsp-qualified-count">0</b> qualified</small></article>
+          <article class="area-seat-card tsp-card"><div class="area-seat-top"><span>TSP · SC seats</span><span class="row-dot violet"></span></div><strong>43</strong><span>43 Secondary + 0 Sanskrit</span><small><b id="tsp-entry-count">0</b> candidate entries · <b id="tsp-qualified-count">0</b> qualified</small></article>
+          <div class="area-seat-total"><span>Total Basic Computer Instructor SC seats</span><strong>945</strong></div>
         </div>
         <div class="seat-table-card">
-          <div class="seat-table-head"><span>Department &amp; area</span><span>SC seats</span></div>
-          <div class="seat-row"><span><i class="row-dot blue"></i>Secondary Education <small>Non-Scheduled Area</small></span><strong>879</strong><em>694 backlog + 185 current</em></div>
-          <div class="seat-row"><span><i class="row-dot violet"></i>Secondary Education <small>Scheduled Area</small></span><strong>43</strong><em>30 backlog + 13 current</em></div>
-          <div class="seat-row"><span><i class="row-dot teal"></i>Sanskrit Education <small>Non-Scheduled Area</small></span><strong>23</strong><em>Current vacancies</em></div>
-          <div class="seat-row"><span><i class="row-dot gray"></i>Sanskrit Education <small>Scheduled Area</small></span><strong>0</strong><em>No SC seats listed</em></div>
+          <div class="seat-table-head"><span>Official SC seat detail · by area</span><span>Seats</span><span>Backlog / current</span></div>
+          <div class="seat-row"><span><i class="row-dot blue"></i>Secondary Education <small>Non-TSP</small></span><strong>879</strong><em>694 backlog + 185 current</em></div>
+          <div class="seat-row"><span><i class="row-dot violet"></i>Secondary Education <small>TSP</small></span><strong>43</strong><em>30 backlog + 13 current</em></div>
+          <div class="seat-row"><span><i class="row-dot teal"></i>Sanskrit Education <small>Non-TSP</small></span><strong>23</strong><em>0 backlog + 23 current</em></div>
+          <div class="seat-row"><span><i class="row-dot gray"></i>Sanskrit Education <small>TSP</small></span><strong>0</strong><em>0 backlog + 0 current</em></div>
         </div>
       </div>
       <p class="source-note">Counts transcribed from the attached RSSB Advertisement 07/2026: pages 1, 5–8. Scheduled Area eligibility is restricted by the notification. Vacancies may be revised by RSSB.</p>
@@ -68,34 +68,53 @@
     <section id="dashboard" class="dashboard-section">
       <div class="section-heading dashboard-title">
         <div><div class="section-kicker">LOCAL CANDIDATE DATA</div><h2>Score dashboard</h2></div>
-        <div class="data-tools">
-          <button class="utility-button" id="import-button" type="button">Import data file</button>
-          <button class="utility-button" id="export-button" type="button">Export backup</button>
-          <button class="utility-button delete-button" id="clear-data-button" type="button">Clear data</button>
-          <input id="import-file" type="file" accept=".json,application/json" hidden>
+        <div class="dashboard-tools">
+          <div class="data-tools">
+            <button class="utility-button" id="import-button" type="button">Import JSON</button>
+            <button class="utility-button" id="export-button" type="button">Backup JSON</button>
+            <button class="utility-button" id="excel-button" type="button">Export Excel</button>
+            <button class="utility-button" id="pdf-button" type="button">Export PDF</button>
+            <button class="utility-button delete-button" id="clear-data-button" type="button">Clear data</button>
+            <input id="import-file" type="file" accept=".json,application/json" hidden>
+          </div>
+          <div class="dashboard-filters">
+            <label for="area-filter">Candidate area</label>
+            <select id="area-filter">
+              <option value="all">All areas</option>
+              <option value="non-tsp">Non-TSP</option>
+              <option value="tsp">TSP</option>
+              <option value="unrecorded">Area not recorded</option>
+            </select>
+            <label for="eligibility-filter">Analysis set</label>
+            <select id="eligibility-filter">
+              <option value="qualified">Qualified only</option>
+              <option value="all">All candidate entries</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="stat-grid">
-        <article class="stat-card"><div class="stat-label">Candidate entries</div><div class="stat-value" id="entry-count">—</div><div class="stat-foot"><span class="stat-bullet green"></span>Stored on this device</div></article>
-        <article class="stat-card"><div class="stat-label">Median submitted score</div><div class="stat-value" id="median-score">—<small>/ 200</small></div><div class="stat-foot">Middle score in this sample</div></article>
-        <article class="stat-card"><div class="stat-label">Middle 50% range</div><div class="stat-value range-value" id="score-range">—</div><div class="stat-foot">25th to 75th percentile</div></article>
-        <article class="stat-card"><div class="stat-label">SC qualifying check</div><div class="stat-value" id="qualified-rate">—</div><div class="stat-foot">35% in each paper · notice rule</div></article>
+        <article class="stat-card"><div class="stat-label">Candidate entries in area</div><div class="stat-value" id="entry-count">—</div><div class="stat-foot"><span class="stat-bullet green"></span>Saved in local database</div></article>
+        <article class="stat-card"><div class="stat-label">Qualified entries</div><div class="stat-value" id="qualified-entry-count">—</div><div class="stat-foot">At least 35 in both papers</div></article>
+        <article class="stat-card"><div class="stat-label">Qualification rate</div><div class="stat-value" id="qualified-rate">—</div><div class="stat-foot">SC minimum check · each paper</div></article>
+        <article class="stat-card"><div class="stat-label">Median analysis score</div><div class="stat-value" id="median-score">—<small>/ 200</small></div><div class="stat-foot" id="median-foot">Qualified entries only</div></article>
       </div>
 
       <div class="analysis-grid">
         <article class="panel chart-panel">
-          <div class="panel-heading"><div><h3>Candidate score distribution</h3><p>All stored SC entries · grouped in 10-mark bands</p></div><span class="panel-tag">LOCAL DATA</span></div>
+          <div class="panel-heading"><div><h3>Candidate score distribution</h3><p id="chart-subtitle">Qualified SC entries · grouped in 10-mark bands</p></div><span class="panel-tag">LOCAL DATA</span></div>
           <div id="distribution" class="chart-area" role="img" aria-label="Submitted scores grouped into 10-mark bands"></div>
           <div class="axis-row"><span>Score band · out of 200</span><span>Number of entries</span></div>
-          <div class="empty-chart" id="chart-empty"><span class="empty-icon">↗</span><strong>No candidate entries yet</strong><span>There are no demo or pre-filled scores.</span></div>
+          <div class="empty-chart" id="chart-empty"><span class="empty-icon">↗</span><strong id="chart-empty-title">No candidate entries yet</strong><span id="chart-empty-detail">Add a candidate score or import a JSON backup.</span></div>
         </article>
         <article class="panel sample-panel">
           <div class="panel-heading"><div><h3>What this sample says</h3><p>Descriptive statistics only</p></div><span class="info-circle" title="This is not an official cut-off">i</span></div>
           <div class="sample-callout"><span class="callout-mark">≠</span><p><strong>Sample score ≠ cut-off</strong><br>Local entries may not represent every applicant and are not independently verified.</p></div>
           <div class="sample-details">
-            <div><span>Lowest submitted total</span><strong id="min-score">—</strong></div>
-            <div><span>Highest submitted total</span><strong id="max-score">—</strong></div>
-            <div><span>Entries meeting 35% in both papers</span><strong id="qualifying-count">—</strong></div>
+            <div><span>Analysis cohort size</span><strong id="analysis-count">—</strong></div>
+            <div><span>Middle 50% total-score range</span><strong id="score-range">—</strong></div>
+            <div><span>Lowest / highest in analysis set</span><strong id="score-extremes">—</strong></div>
+            <div><span>Below SC minimum in either paper</span><strong id="below-count">—</strong></div>
           </div>
           <div class="updated-line"><span class="status-dot small-dot"></span><span id="updated-at">Saved in this browser</span></div>
         </article>
@@ -117,7 +136,16 @@
             </select>
           </label>
           <div class="form-divider"></div>
-          <div class="form-section-label"><span>02</span> Paper-wise marks</div>
+          <div class="form-section-label"><span>02</span> Recruitment area</div>
+          <label class="field area-field">Area
+            <select id="candidate-area" name="area" required>
+              <option value="" disabled selected>Select TSP or Non-TSP</option>
+              <option value="non-tsp">Non-TSP · Non-Scheduled Area</option>
+              <option value="tsp">TSP · Scheduled Area</option>
+            </select>
+          </label>
+          <div class="form-divider"></div>
+          <div class="form-section-label"><span>03</span> Paper-wise marks</div>
           <div class="form-grid two-col">
             <label class="field">Paper I marks <span class="field-unit">out of 100</span>
               <input id="paper1" name="paper1" type="number" min="-33.34" max="100" step="0.01" placeholder="e.g. 62.50" required inputmode="decimal">
@@ -127,18 +155,18 @@
             </label>
           </div>
           <div class="total-preview"><span>Calculated total</span><strong id="total-preview">— <small>/ 200</small></strong><span id="qualify-preview" class="qualify-chip">Enter both papers</span></div>
-          <label class="consent-row"><input id="consent" type="checkbox" required><span>I confirm this is my own score. I understand it will be stored only in this browser unless I export and share the data file.</span></label>
+          <label class="consent-row"><input id="consent" type="checkbox" required><span>I confirm this is my own score. I understand it will be saved in this browser database, not uploaded to a server.</span></label>
           <button class="primary-button" type="submit" id="submit-button"><span>Save score on this device</span><span aria-hidden="true">→</span></button>
           <p class="form-feedback" id="form-feedback" role="status"></p>
           <p class="form-footnote">Category is fixed to SC. Do not enter your name, roll number, phone number or any other identifying information.</p>
         </form>
         <aside class="how-card">
           <div class="how-icon">✳</div><h3>Small details. Better signal.</h3>
-          <p>Paper-wise marks let the dashboard apply the SC qualifying rule stated in the notification: at least 35% in each paper.</p>
-          <div class="how-step"><span>1</span><p>SC is preselected and fixed for this analysis.</p></div>
-          <div class="how-step"><span>2</span><p>Enter both paper marks, up to two decimal places.</p></div>
-          <div class="how-step"><span>3</span><p>Review the total and save your candidate entry.</p></div>
-          <div class="honesty-note"><span>!</span><p>Entries are not verified. Use JSON export and import to back up or manually combine records.</p></div>
+          <p>The notification gives SC candidates a five-point relaxation from 40%: the minimum is 35 marks in <strong>each</strong> 100-mark paper.</p>
+          <div class="how-step"><span>1</span><p>SC is preselected and locked; select TSP or Non-TSP.</p></div>
+          <div class="how-step"><span>2</span><p>Enter both paper marks to up to two decimal places.</p></div>
+          <div class="how-step"><span>3</span><p>Scores below 35 in either paper are marked not qualified and excluded from the default analysis.</p></div>
+          <div class="honesty-note"><span>!</span><p>Entries are not verified. Back up your local database regularly using JSON, Excel or PDF export.</p></div>
         </aside>
       </div>
     </section>
@@ -147,7 +175,7 @@
       <div><div class="section-kicker">TRANSPARENCY FIRST</div><h2>Method &amp; limitations</h2></div>
       <div class="method-grid">
         <p><strong>Candidate-driven.</strong> The dashboard starts empty and contains only scores entered by candidates. No generated or demo records are included.</p>
-        <p><strong>Private on this device.</strong> Scores are stored in this browser and are not uploaded. Export a JSON backup to move or share records; imported records merge on this device.</p>
+        <p><strong>Private on this device.</strong> IndexedDB stores scores in this browser; nothing is uploaded. Export JSON or Excel; use PDF / Print to save a report. Import JSON to restore or combine candidate records manually.</p>
         <p><strong>No identifying fields.</strong> The form does not ask for names, application IDs, roll numbers, phone numbers or email addresses. Avoid adding personal details to exported files.</p>
         <p><strong>Not a predicted cut-off.</strong> Entries may be incomplete, estimated or unverified. A median or percentile describes only the records currently stored on this device.</p>
       </div>
