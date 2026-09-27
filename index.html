@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <meta name="description" content="Candidate-submitted score analysis and official SC vacancy data for RSSB Basic Computer Instructor Recruitment 2026.">
+  <title>BCI 2026 · SC Cut-off Monitor</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="BCI 2026 home">
+      <span class="brand-mark">B<span>i</span></span>
+      <span><strong>BCI 2026</strong><small>SC cut-off monitor</small></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a class="nav-link active" href="#dashboard">Dashboard</a>
+      <a class="nav-link" href="#submit">Add score</a>
+      <a class="nav-link" href="#vacancies">SC vacancies</a>
+    </nav>
+    <div class="status-pill" id="connection-status"><span class="status-dot"></span><span>Checking data connection</span></div>
+  </header>
+
+  <main id="top" class="page-shell">
+    <section class="intro-row">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-line"></span> RSSB RECRUITMENT · ADVERTISEMENT 07/2026</div>
+        <h1>Basic Computer Instructor <span>2026</span></h1>
+        <p class="intro-copy">A private, candidate-entered score tracker for the <strong>Scheduled Caste (SC)</strong> category. Scores stay on this device unless you export and share the data file.</p>
+      </div>
+      <div class="category-lock" aria-label="Category fixed to Scheduled Caste">
+        <span class="lock-icon" aria-hidden="true">▣</span>
+        <span><small>Category filter</small><strong>SC · Locked</strong></span>
+        <span class="lock-mark" aria-hidden="true">✓</span>
+      </div>
+    </section>
+
+    <section class="notice-bar" aria-label="Important note">
+      <span class="notice-icon" aria-hidden="true">i</span>
+      <p><strong>Local candidate data, not an official cut-off.</strong> Scores are saved in this browser only. Use the data-file controls below to back up or transfer them. No demo records are included.</p>
+      <a href="#methodology">How it works <span aria-hidden="true">↗</span></a>
+    </section>
+
+    <section id="vacancies" class="vacancy-section">
+      <div class="section-heading">
+        <div><div class="section-kicker">OFFICIAL NOTIFICATION DATA</div><h2>SC seats in this recruitment</h2></div>
+        <a class="source-link" href="RSSB-Basic-Senior-Computer-Instructor-2026-Notification.pdf" target="_blank" rel="noreferrer">View RSSB notification <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="seat-summary">
+        <div class="seat-total-card">
+          <div class="seat-total-top"><span>Total SC seats</span><span class="seat-icon">▦</span></div>
+          <div class="seat-number">945</div>
+          <div class="seat-total-foot"><span class="mini-dot"></span> Basic Computer Instructor only</div>
+        </div>
+        <div class="seat-table-card">
+          <div class="seat-table-head"><span>Department &amp; area</span><span>SC seats</span></div>
+          <div class="seat-row"><span><i class="row-dot blue"></i>Secondary Education <small>Non-Scheduled Area</small></span><strong>879</strong><em>694 backlog + 185 current</em></div>
+          <div class="seat-row"><span><i class="row-dot violet"></i>Secondary Education <small>Scheduled Area</small></span><strong>43</strong><em>30 backlog + 13 current</em></div>
+          <div class="seat-row"><span><i class="row-dot teal"></i>Sanskrit Education <small>Non-Scheduled Area</small></span><strong>23</strong><em>Current vacancies</em></div>
+          <div class="seat-row"><span><i class="row-dot gray"></i>Sanskrit Education <small>Scheduled Area</small></span><strong>0</strong><em>No SC seats listed</em></div>
+        </div>
+      </div>
+      <p class="source-note">Counts transcribed from the attached RSSB Advertisement 07/2026: pages 1, 5–8. Scheduled Area eligibility is restricted by the notification. Vacancies may be revised by RSSB.</p>
+    </section>
+
+    <section id="dashboard" class="dashboard-section">
+      <div class="section-heading dashboard-title">
+        <div><div class="section-kicker">LOCAL CANDIDATE DATA</div><h2>Score dashboard</h2></div>
+        <div class="data-tools">
+          <button class="utility-button" id="import-button" type="button">Import data file</button>
+          <button class="utility-button" id="export-button" type="button">Export backup</button>
+          <button class="utility-button delete-button" id="clear-data-button" type="button">Clear data</button>
+          <input id="import-file" type="file" accept=".json,application/json" hidden>
+          <div class="filter-wrap">
+          <label for="pool-filter">Score pool</label>
+          <select id="pool-filter" aria-label="Filter candidate scores by recruitment pool">
+            <option value="all">All SC pools</option>
+            <option value="secondary|non-scheduled">Secondary · Non-Scheduled</option>
+            <option value="secondary|scheduled">Secondary · Scheduled</option>
+            <option value="sanskrit|non-scheduled">Sanskrit · Non-Scheduled</option>
+            <option value="sanskrit|scheduled">Sanskrit · Scheduled</option>
+          </select>
+          </div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <article class="stat-card"><div class="stat-label">Candidate entries</div><div class="stat-value" id="entry-count">—</div><div class="stat-foot"><span class="stat-bullet green"></span>Stored on this device</div></article>
+        <article class="stat-card"><div class="stat-label">Median submitted score</div><div class="stat-value" id="median-score">—<small>/ 200</small></div><div class="stat-foot">Middle score in this sample</div></article>
+        <article class="stat-card"><div class="stat-label">Middle 50% range</div><div class="stat-value range-value" id="score-range">—</div><div class="stat-foot">25th to 75th percentile</div></article>
+        <article class="stat-card"><div class="stat-label">SC qualifying check</div><div class="stat-value" id="qualified-rate">—</div><div class="stat-foot">35% in each paper · notice rule</div></article>
+      </div>
+
+      <div class="analysis-grid">
+        <article class="panel chart-panel">
+          <div class="panel-heading"><div><h3>Submitted score distribution</h3><p>Candidate entries grouped in 10-mark bands</p></div><span class="panel-tag">LOCAL DATA</span></div>
+          <div id="distribution" class="chart-area" role="img" aria-label="Submitted scores grouped into 10-mark bands"></div>
+          <div class="axis-row"><span>Score band · out of 200</span><span>Number of entries</span></div>
+          <div class="empty-chart" id="chart-empty"><span class="empty-icon">↗</span><strong>No candidate entries yet</strong><span>There are no demo or pre-filled scores.</span></div>
+        </article>
+        <article class="panel sample-panel">
+          <div class="panel-heading"><div><h3>What this sample says</h3><p>Descriptive statistics only</p></div><span class="info-circle" title="This is not an official cut-off">i</span></div>
+          <div class="sample-callout"><span class="callout-mark">≠</span><p><strong>Sample score ≠ cut-off</strong><br>Local entries may not represent every applicant and are not independently verified.</p></div>
+          <div class="sample-details">
+            <div><span>Lowest submitted total</span><strong id="min-score">—</strong></div>
+            <div><span>Highest submitted total</span><strong id="max-score">—</strong></div>
+            <div><span>Entries meeting 35% in both papers</span><strong id="qualifying-count">—</strong></div>
+            <div><span>Answer-key estimates</span><strong id="estimate-count">—</strong></div>
+            <div><span>Official-result entries</span><strong id="official-count">—</strong></div>
+          </div>
+          <div class="updated-line"><span class="status-dot small-dot"></span><span id="updated-at">Saved in this browser</span></div>
+        </article>
+      </div>
+      <div id="dashboard-message" class="inline-message" role="status"></div>
+    </section>
+
+    <section id="submit" class="submit-section">
+      <div class="section-heading">
+        <div><div class="section-kicker">ADD YOUR SCORE</div><h2>Help build the candidate dataset</h2></div>
+        <span class="privacy-label"><span aria-hidden="true">◈</span> No personal details</span>
+      </div>
+      <div class="submit-layout">
+        <form id="score-form" class="form-card">
+          <div class="form-section-label"><span>01</span> Recruitment pool</div>
+          <div class="form-grid two-col">
+            <label class="field">Department
+              <select id="department" name="department" required>
+                <option value="secondary">Secondary Education</option>
+                <option value="sanskrit">Sanskrit Education</option>
+              </select>
+            </label>
+            <label class="field">Recruitment area
+              <select id="area" name="area" required>
+                <option value="non-scheduled">Non-Scheduled Area</option>
+                <option value="scheduled">Scheduled Area</option>
+              </select>
+            </label>
+          </div>
+          <div class="pool-hint" id="pool-hint">Choose the area and department matching your application.</div>
+          <div class="form-divider"></div>
+          <div class="form-section-label"><span>02</span> Paper-wise marks</div>
+          <div class="form-grid two-col">
+            <label class="field">Paper I marks <span class="field-unit">out of 100</span>
+              <input id="paper1" name="paper1" type="number" min="-33.34" max="100" step="0.01" placeholder="e.g. 62.50" required inputmode="decimal">
+            </label>
+            <label class="field">Paper II marks <span class="field-unit">out of 100</span>
+              <input id="paper2" name="paper2" type="number" min="-33.34" max="100" step="0.01" placeholder="e.g. 71.00" required inputmode="decimal">
+            </label>
+          </div>
+          <div class="total-preview"><span>Calculated total</span><strong id="total-preview">— <small>/ 200</small></strong><span id="qualify-preview" class="qualify-chip">Enter both papers</span></div>
+          <label class="field source-field">Score basis
+            <select id="score-basis" name="scoreBasis" required>
+              <option value="answer-key">Self-calculated from an answer key</option>
+              <option value="official-result">Official result / score card</option>
+            </select>
+          </label>
+          <label class="consent-row"><input id="consent" type="checkbox" required><span>I confirm this is my own score. I understand it will be stored only in this browser unless I export and share the data file.</span></label>
+          <button class="primary-button" type="submit" id="submit-button"><span>Save score on this device</span><span aria-hidden="true">→</span></button>
+          <p class="form-feedback" id="form-feedback" role="status"></p>
+          <p class="form-footnote">Category is fixed to SC. Do not enter your name, roll number, phone number or any other identifying information.</p>
+        </form>
+        <aside class="how-card">
+          <div class="how-icon">✳</div><h3>Small details. Better signal.</h3>
+          <p>Paper-wise marks let the dashboard apply the SC qualifying rule stated in the notification: at least 35% in each paper.</p>
+          <div class="how-step"><span>1</span><p>Select the department and area on your application.</p></div>
+          <div class="how-step"><span>2</span><p>Enter your marks after negative marking, for both papers.</p></div>
+          <div class="how-step"><span>3</span><p>Review the total and share only if the entry is yours.</p></div>
+          <div class="honesty-note"><span>!</span><p>Answer-key estimates and official-result entries are labelled separately. Imported files are merged on this device only.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="methodology" class="method-section">
+      <div><div class="section-kicker">TRANSPARENCY FIRST</div><h2>Method &amp; limitations</h2></div>
+      <div class="method-grid">
+        <p><strong>Candidate-driven.</strong> The dashboard starts empty and contains only scores entered by candidates. No generated or demo records are included.</p>
+        <p><strong>Private on this device.</strong> Scores are stored in this browser and are not uploaded. Export a JSON backup to move or share records; imported records merge on this device.</p>
+        <p><strong>No identifying fields.</strong> The form does not ask for names, application IDs, roll numbers, phone numbers or email addresses. Avoid adding personal details to exported files.</p>
+        <p><strong>Not a predicted cut-off.</strong> Entries may be incomplete, estimated or unverified. A median or percentile describes only the records currently stored on this device.</p>
+      </div>
+      <div class="method-footer">Official source: RSSB Advertisement 07/2026, attached notification. SC is fixed for this view. For final eligibility, vacancy revisions and results, follow RSSB notices.</div>
+    </section>
+  </main>
+  <footer class="footer"><span>BCI 2026 · SC Cut-off Monitor</span><span>Independent candidate project · Not affiliated with RSSB</span></footer>
+</body>
+</html>
