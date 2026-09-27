@@ -4,7 +4,7 @@ A light-theme, English-only, static GitHub Pages site for RSSB Basic Computer In
 
 ## Data storage: local browser + JSON file backup
 
-This version does not use a cloud database. Scores are stored in the current browser's local storage and are not uploaded to GitHub Pages. To back up, transfer or combine candidate records, use **Export backup** and **Import data file**. Exports are JSON files that contain only the recruitment pool, paper marks, score basis and submission timestamp—no names, application IDs, roll numbers, phone numbers or email addresses.
+This version does not use a cloud database. Scores are stored in the current browser's local storage and are not uploaded to GitHub Pages. To back up, transfer or combine candidate records, use **Export backup** and **Import data file**. The score form keeps SC preselected and locked, accepts up to two decimal places for each paper, and does not ask for department, recruitment area or score basis. Exports are JSON files containing only SC, paper marks and submission time—no names, application IDs, roll numbers, phone numbers or email addresses.
 
 To start from the provided empty data file, use **Import data file** and select [`candidate-data-template.json`](candidate-data-template.json). It contains zero records. Exported records can be moved between browsers/devices manually. Each browser has its own dataset until records are transferred. Clearing browser site data may delete local entries, so export backups regularly.
 

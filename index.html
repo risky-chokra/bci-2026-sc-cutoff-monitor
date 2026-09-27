@@ -73,16 +73,6 @@
           <button class="utility-button" id="export-button" type="button">Export backup</button>
           <button class="utility-button delete-button" id="clear-data-button" type="button">Clear data</button>
           <input id="import-file" type="file" accept=".json,application/json" hidden>
-          <div class="filter-wrap">
-          <label for="pool-filter">Score pool</label>
-          <select id="pool-filter" aria-label="Filter candidate scores by recruitment pool">
-            <option value="all">All SC pools</option>
-            <option value="secondary|non-scheduled">Secondary · Non-Scheduled</option>
-            <option value="secondary|scheduled">Secondary · Scheduled</option>
-            <option value="sanskrit|non-scheduled">Sanskrit · Non-Scheduled</option>
-            <option value="sanskrit|scheduled">Sanskrit · Scheduled</option>
-          </select>
-          </div>
         </div>
       </div>
       <div class="stat-grid">
@@ -94,7 +84,7 @@
 
       <div class="analysis-grid">
         <article class="panel chart-panel">
-          <div class="panel-heading"><div><h3>Submitted score distribution</h3><p>Candidate entries grouped in 10-mark bands</p></div><span class="panel-tag">LOCAL DATA</span></div>
+          <div class="panel-heading"><div><h3>Candidate score distribution</h3><p>All stored SC entries · grouped in 10-mark bands</p></div><span class="panel-tag">LOCAL DATA</span></div>
           <div id="distribution" class="chart-area" role="img" aria-label="Submitted scores grouped into 10-mark bands"></div>
           <div class="axis-row"><span>Score band · out of 200</span><span>Number of entries</span></div>
           <div class="empty-chart" id="chart-empty"><span class="empty-icon">↗</span><strong>No candidate entries yet</strong><span>There are no demo or pre-filled scores.</span></div>
@@ -106,8 +96,6 @@
             <div><span>Lowest submitted total</span><strong id="min-score">—</strong></div>
             <div><span>Highest submitted total</span><strong id="max-score">—</strong></div>
             <div><span>Entries meeting 35% in both papers</span><strong id="qualifying-count">—</strong></div>
-            <div><span>Answer-key estimates</span><strong id="estimate-count">—</strong></div>
-            <div><span>Official-result entries</span><strong id="official-count">—</strong></div>
           </div>
           <div class="updated-line"><span class="status-dot small-dot"></span><span id="updated-at">Saved in this browser</span></div>
         </article>
@@ -117,27 +105,17 @@
 
     <section id="submit" class="submit-section">
       <div class="section-heading">
-        <div><div class="section-kicker">ADD YOUR SCORE</div><h2>Help build the candidate dataset</h2></div>
+        <div><div class="section-kicker">ADD YOUR SCORE</div><h2>Add a candidate entry</h2></div>
         <span class="privacy-label"><span aria-hidden="true">◈</span> No personal details</span>
       </div>
       <div class="submit-layout">
         <form id="score-form" class="form-card">
-          <div class="form-section-label"><span>01</span> Recruitment pool</div>
-          <div class="form-grid two-col">
-            <label class="field">Department
-              <select id="department" name="department" required>
-                <option value="secondary">Secondary Education</option>
-                <option value="sanskrit">Sanskrit Education</option>
-              </select>
-            </label>
-            <label class="field">Recruitment area
-              <select id="area" name="area" required>
-                <option value="non-scheduled">Non-Scheduled Area</option>
-                <option value="scheduled">Scheduled Area</option>
-              </select>
-            </label>
-          </div>
-          <div class="pool-hint" id="pool-hint">Choose the area and department matching your application.</div>
+          <div class="form-section-label"><span>01</span> Candidate category</div>
+          <label class="field category-field">Category
+            <select id="candidate-category" name="category" disabled aria-label="Category is fixed to Scheduled Caste">
+              <option value="SC" selected>SC · Scheduled Caste</option>
+            </select>
+          </label>
           <div class="form-divider"></div>
           <div class="form-section-label"><span>02</span> Paper-wise marks</div>
           <div class="form-grid two-col">
@@ -149,12 +127,6 @@
             </label>
           </div>
           <div class="total-preview"><span>Calculated total</span><strong id="total-preview">— <small>/ 200</small></strong><span id="qualify-preview" class="qualify-chip">Enter both papers</span></div>
-          <label class="field source-field">Score basis
-            <select id="score-basis" name="scoreBasis" required>
-              <option value="answer-key">Self-calculated from an answer key</option>
-              <option value="official-result">Official result / score card</option>
-            </select>
-          </label>
           <label class="consent-row"><input id="consent" type="checkbox" required><span>I confirm this is my own score. I understand it will be stored only in this browser unless I export and share the data file.</span></label>
           <button class="primary-button" type="submit" id="submit-button"><span>Save score on this device</span><span aria-hidden="true">→</span></button>
           <p class="form-feedback" id="form-feedback" role="status"></p>
@@ -163,10 +135,10 @@
         <aside class="how-card">
           <div class="how-icon">✳</div><h3>Small details. Better signal.</h3>
           <p>Paper-wise marks let the dashboard apply the SC qualifying rule stated in the notification: at least 35% in each paper.</p>
-          <div class="how-step"><span>1</span><p>Select the department and area on your application.</p></div>
-          <div class="how-step"><span>2</span><p>Enter your marks after negative marking, for both papers.</p></div>
-          <div class="how-step"><span>3</span><p>Review the total and share only if the entry is yours.</p></div>
-          <div class="honesty-note"><span>!</span><p>Answer-key estimates and official-result entries are labelled separately. Imported files are merged on this device only.</p></div>
+          <div class="how-step"><span>1</span><p>SC is preselected and fixed for this analysis.</p></div>
+          <div class="how-step"><span>2</span><p>Enter both paper marks, up to two decimal places.</p></div>
+          <div class="how-step"><span>3</span><p>Review the total and save your candidate entry.</p></div>
+          <div class="honesty-note"><span>!</span><p>Entries are not verified. Use JSON export and import to back up or manually combine records.</p></div>
         </aside>
       </div>
     </section>
